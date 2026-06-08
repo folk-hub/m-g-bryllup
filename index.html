@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miriam & Gjermund — 19. juni 2027</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream2: #F3EDE4;
+      --blush: #E8D5C4;
+      --rose: #C4876A;
+      --rose-dark: #A06A4F;
+      --sage: #8A9E8C;
+      --navy: #2C3A47;
+      --text: #3D3530;
+      --text-light: #7A6E68;
+      --border: #E0D4CA;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────── NAV ─────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 4vw;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.2rem;
+      color: #fff; text-decoration: none;
+      transition: color 0.4s;
+      letter-spacing: 0.04em;
+    }
+    nav.scrolled .nav-logo { color: var(--rose-dark); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.3s;
+    }
+    nav.scrolled .nav-links a { color: var(--text-light); }
+    .nav-links a:hover { color: var(--rose) !important; }
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: #fff; transition: background 0.4s;
+    }
+    nav.scrolled .hamburger span { background: var(--text); }
+    @media (max-width: 800px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 70px; left: 0; right: 0;
+        background: var(--cream); flex-direction: column; align-items: center;
+        padding: 2rem 0; gap: 1.5rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { color: var(--text-light) !important; }
+    }
+
+    /* ─────────────────── HERO ─────────────────── */
+    #hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('foto4.jpg') center/cover no-repeat;
+      transform: scale(1.08);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.14); }
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(44,58,71,0.38) 0%,
+        rgba(44,58,71,0.28) 50%,
+        rgba(44,58,71,0.55) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      animation: heroFadeIn 1.8s ease both;
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-ornament {
+      width: 90px; margin-bottom: 1.5rem; opacity: 0.75;
+      animation: spinSlow 40s linear infinite;
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 300; color: #fff;
+      letter-spacing: 0.06em; line-height: 1;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+    }
+    .hero-amp {
+      font-style: italic; color: var(--blush);
+      display: block; font-size: 0.45em;
+      margin: 0.4em 0; letter-spacing: 0.15em;
+    }
+    .hero-date {
+      font-size: 0.82rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+      margin-top: 2rem;
+    }
+    .hero-divider {
+      width: 50px; height: 1px; background: var(--blush);
+      margin: 1.5rem auto; opacity: 0.8;
+    }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.2);
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.6); font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      animation: bounce 2s ease infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+    .hero-scroll svg { opacity: 0.6; }
+
+    /* ─────────────────── COUNTDOWN ─────────────────── */
+    .countdown-bar {
+      background: var(--navy); color: #fff;
+      padding: 2.5rem 4vw; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .countdown-bar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(196,135,106,0.08), transparent);
+      animation: shimmer 3s ease infinite;
+    }
+    @keyframes shimmer {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(100%); }
+    }
+    .countdown-inner {
+      display: flex; justify-content: center; gap: clamp(2rem, 6vw, 6rem);
+      flex-wrap: wrap; position: relative;
+    }
+    .cd-unit { text-align: center; }
+    .cd-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300; display: block; line-height: 1;
+    }
+    .cd-label {
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; opacity: 0.5;
+      margin-top: 0.4rem; display: block;
+    }
+
+    /* ─────────────────── SECTION BASE ─────────────────── */
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--rose);
+      margin-bottom: 0.6rem; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 300; color: var(--navy);
+      line-height: 1.1; margin-bottom: 1.2rem;
+    }
+    .section-title.light { color: #fff; }
+    .section-divider {
+      width: 50px; height: 1px; background: var(--rose);
+      margin-bottom: 2rem; opacity: 0.5;
+    }
+    p { color: var(--text-light); margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    p.large { font-size: 1.05rem; line-height: 1.9; }
+
+    /* ─────────────────── OM OSS — SPLIT ─────────────────── */
+    #om-oss { background: var(--cream); }
+
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+    }
+    .split-section.reverse { direction: rtl; }
+    .split-section.reverse > * { direction: ltr; }
+    .split-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(3rem, 7vw, 7rem) clamp(3rem, 6vw, 7rem);
+    }
+    .split-img {
+      overflow: hidden; position: relative;
+    }
+    .split-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transition: transform 0.8s ease;
+      display: block;
+    }
+    .split-img:hover img { transform: scale(1.04); }
+
+    .story-section {
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+      background: var(--white);
+    }
+    .story-inner { max-width: 1300px; margin: 0 auto; }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 6rem);
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .story-grid.text-right .story-text { order: 2; }
+    .story-grid.text-right .story-photo-wrap { order: 1; }
+
+    .story-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      color: var(--navy); font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .story-photo-wrap {
+      overflow: hidden; border-radius: 2px;
+      position: relative;
+    }
+    .story-photo-wrap img,
+    .story-photo-wrap video {
+      width: 100%; display: block;
+      object-fit: cover; border-radius: 2px;
+      transition: transform 0.7s ease;
+    }
+    .story-photo-wrap:hover img { transform: scale(1.03); }
+    .story-photo-wrap .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(to top, rgba(44,58,71,0.6), transparent);
+      color: rgba(255,255,255,0.85);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 0.9rem;
+    }
+
+    .person-strip {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 4rem;
+    }
+    .person-panel {
+      background: var(--cream2);
+      padding: clamp(2rem, 4vw, 4rem);
+      text-align: center;
+    }
+    .person-panel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ─────────────────── PRAKTISK ─────────────────── */
+    #praktisk {
+      background: var(--cream2);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+    }
+    .praktisk-inner { max-width: 1300px; margin: 0 auto; }
+    .praktisk-header { text-align: center; margin-bottom: 4rem; }
+    .venue-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+    .venue-card {
+      background: var(--white);
+      padding: clamp(2.5rem, 5vw, 5rem) clamp(2rem, 4vw, 4rem);
+      display: flex; flex-direction: column; align-items: flex-start;
+      position: relative; overflow: hidden;
+      transition: transform 0.4s ease;
+    }
+    .venue-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 3px; background: var(--rose);
+      transition: width 0.5s ease;
+    }
+    .venue-card:hover::after { width: 100%; }
+    .venue-icon {
+      font-size: 2rem; margin-bottom: 1.5rem;
+      display: block;
+    }
+    .venue-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      color: var(--navy); margin-bottom: 0.4rem;
+      font-weight: 300;
+    }
+    .venue-detail { font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .venue-link {
+      display: inline-block; margin-top: 1.5rem;
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--rose);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rose); padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .venue-link:hover { opacity: 0.65; }
+
+    /* ─────────────────── PROGRAM ─────────────────── */
+    #program {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+      position: relative; overflow: hidden;
+    }
+    #program::before {
+      content: 'Juni';
+      position: absolute; right: -0.1em; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30vw; font-weight: 300;
+      color: rgba(255,255,255,0.03);
+      line-height: 1; pointer-events: none;
+    }
+    .program-inner { max-width: 1300px; margin: 0 auto; position: relative; }
+    .program-header { margin-bottom: 4rem; }
+    .program-header .section-label { color: var(--blush); opacity: 0.7; }
+
+    .timeline-horizontal {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .timeline-horizontal::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: 0; right: 0;
+      height: 1px; background: rgba(255,255,255,0.15);
+    }
+    .tl-item {
+      padding: 0 1.5rem 0 0;
+      position: relative;
+    }
+    .tl-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--rose);
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 1px var(--rose);
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
+    }
+    .tl-time {
+      font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--rose);
+      margin-bottom: 0.4rem;
+    }
+    .tl-event {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; color: #fff;
+      margin-bottom: 0.3rem; font-weight: 300;
+    }
+    .tl-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin: 0; }
+
+    /* ─────────────────── KLESKODE ─────────────────── */
+    #kleskode {
+      background: var(--white);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+    }
+    .kleskode-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 8rem); align-items: center;
+    }
+    .kleskode-visual {
+      aspect-ratio: 4/3;
+      background: var(--cream2);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--rose-dark);
+      font-size: 1.2rem; overflow: hidden; position: relative;
+    }
+    .dress-icons {
+      display: flex; gap: 3rem; font-size: 5rem;
+      animation: floatIcons 4s ease-in-out infinite;
+    }
+    @keyframes floatIcons {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .kleskode-rule {
+      border-left: 3px solid var(--rose);
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--cream);
+    }
+    .kleskode-rule-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--navy); margin-bottom: 0.3rem;
+    }
+
+    /* ─────────────────── GAVER ─────────────────── */
+    #gaver {
+      background: var(--cream2);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+      text-align: center;
+    }
+    .gaver-inner { max-width: 700px; margin: 0 auto; }
+    .gift-box {
+      background: var(--white); border-radius: 4px;
+      padding: 3rem 3rem; margin-top: 2rem;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+    }
+    .gift-icon {
+      font-size: 3rem; display: block; margin-bottom: 1rem;
+      animation: pulse 3s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.1); }
+    }
+
+    /* ─────────────────── OVERNATTING ─────────────────── */
+    #overnatting {
+      background: var(--white);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+    }
+    .overnatting-inner { max-width: 1300px; margin: 0 auto; }
+    .hotel-placeholder-big {
+      border: 1px dashed var(--border); border-radius: 4px;
+      padding: 4rem; text-align: center; margin-top: 2rem;
+      color: var(--text-light); font-style: italic;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+    }
+
+    /* ─────────────────── TOASTMASTER ─────────────────── */
+    #toastmaster {
+      background: var(--cream2);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+    }
+    .toast-inner { max-width: 1300px; margin: 0 auto; }
+    .toast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+    .toast-name-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem); color: var(--navy);
+      margin-bottom: 0.5rem; font-weight: 300;
+    }
+    .guidelines-list { padding-left: 1.2rem; margin-top: 1rem; }
+    .guidelines-list li { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.6rem; }
+
+    /* ─────────────────── FAQ ─────────────────── */
+    #faq {
+      background: var(--white);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+    }
+    .faq-inner { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0 6vw; }
+    .faq-header { grid-column: 1 / -1; margin-bottom: 2rem; }
+    .faq-item {
+      border-bottom: 1px solid var(--border); padding: 1.5rem 0;
+    }
+    .faq-item:first-of-type { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--navy);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; user-select: none;
+    }
+    .faq-toggle { color: var(--rose); font-size: 1.4rem; transition: transform 0.3s ease; flex-shrink: 0; }
+    .faq-a { font-size: 0.9rem; color: var(--text-light); margin-top: 0.75rem; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    /* ─────────────────── RSVP ─────────────────── */
+    #rsvp {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 9rem) clamp(3rem, 7vw, 10vw);
+      position: relative; overflow: hidden;
+    }
+    #rsvp::after {
+      content: '19';
+      position: absolute; left: -0.1em; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 35vw; font-weight: 300;
+      color: rgba(255,255,255,0.025);
+      line-height: 1; pointer-events: none;
+    }
+    .rsvp-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 6vw;
+      position: relative; z-index: 1;
+    }
+    .rsvp-intro .section-label { color: rgba(232,213,196,0.7); }
+    .rsvp-intro p { color: rgba(255,255,255,0.55); }
+    .rsvp-intro .deadline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; color: var(--blush);
+      margin-top: 2rem; font-style: italic;
+    }
+
+    .rsvp-form { display: grid; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px; padding: 0.85rem 1.1rem;
+      color: #fff; font-family: 'Jost', sans-serif;
+      font-size: 0.9rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--rose); background: rgba(255,255,255,0.1);
+    }
+    .form-group select option { background: var(--navy); }
+    .form-group textarea { min-height: 90px; resize: vertical; }
+    .btn-submit {
+      background: var(--rose); color: #fff; border: none;
+      padding: 1.1rem 3rem; font-family: 'Jost', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.2em;
+      text-transform: uppercase; cursor: pointer;
+      border-radius: 1px; transition: background 0.25s, transform 0.2s;
+      align-self: start; margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--rose-dark); transform: translateY(-1px); }
+    .form-success {
+      display: none; text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.5rem; color: var(--blush);
+      padding: 3rem;
+    }
+
+    /* ─────────────────── FOOTER ─────────────────── */
+    footer {
+      text-align: center; padding: 3rem 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--text-light);
+      font-size: 1rem; border-top: 1px solid var(--border);
+    }
+    footer span { display: block; font-size: 0.75rem; font-style: normal; letter-spacing: 0.1em; opacity: 0.4; margin-top: 0.4rem; }
+
+    /* ─────────────────── SCROLL ANIMATIONS ─────────────────── */
+    .anim-fade-up {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1);
+    }
+    .anim-fade-up.visible { opacity: 1; transform: none; }
+
+    .anim-fade-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1);
+    }
+    .anim-fade-left.visible { opacity: 1; transform: none; }
+
+    .anim-fade-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1);
+    }
+    .anim-fade-right.visible { opacity: 1; transform: none; }
+
+    .anim-scale {
+      opacity: 0; transform: scale(0.94);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .anim-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* Stagger children */
+    .stagger > * { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.1s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.2s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.3s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.4s; }
+
+    /* ─────────────────── RESPONSIVE ─────────────────── */
+    @media (max-width: 900px) {
+      .split-section,
+      .story-grid,
+      .venue-grid,
+      .kleskode-inner,
+      .toast-grid,
+      .faq-inner,
+      .rsvp-inner { grid-template-columns: 1fr; }
+      .split-section.reverse { direction: ltr; }
+      .story-grid.text-right .story-text,
+      .story-grid.text-right .story-photo-wrap { order: unset; }
+      .faq-header { grid-column: 1; }
+      .timeline-horizontal { grid-template-columns: 1fr; }
+      .timeline-horizontal::before { display: none; }
+      .tl-item { padding: 0 0 2rem 2rem; border-left: 1px solid rgba(255,255,255,0.1); }
+      .tl-dot { position: absolute; left: -5px; top: 0; }
+      .tl-item { position: relative; }
+      .person-strip { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Miriam & Gjermund</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#om-oss" onclick="closeMenu()">Om oss</a></li>
+      <li><a href="#praktisk" onclick="closeMenu()">Praktisk</a></li>
+      <li><a href="#program" onclick="closeMenu()">Program</a></li>
+      <li><a href="#kleskode" onclick="closeMenu()">Kleskode</a></li>
+      <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
+      <li><a href="#rsvp" onclick="closeMenu()">RSVP</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <svg class="hero-ornament" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="50" stroke="rgba(232,213,196,0.8)" stroke-width="0.8"/>
+      <path d="M60 28 C60 28 49 40 49 56 C49 67 54 72 60 74 C66 72 71 67 71 56 C71 40 60 28 60 28Z" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <path d="M32 60 C32 60 47 54 56 60 C47 66 32 60 32 60Z" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <path d="M88 60 C88 60 73 54 64 60 C73 66 88 60 88 60Z" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <path d="M40 40 C40 40 51 48 55 56 C49 50 40 40 40 40Z" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <path d="M80 40 C80 40 69 48 65 56 C71 50 80 40 80 40Z" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <circle cx="60" cy="60" r="3" fill="rgba(232,213,196,0.6)"/>
+      <path d="M54 87 Q60 96 66 87" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+      <path d="M48 83 Q60 99 72 83" stroke="rgba(232,213,196,0.8)" stroke-width="0.8" fill="none"/>
+    </svg>
+
+    <h1 class="hero-names">
+      Miriam
+      <span class="hero-amp">&amp;</span>
+      Gjermund
+    </h1>
+    <p class="hero-date">19 · Juni · 2027 &nbsp;·&nbsp; Kristiansand</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Sammen feirer vi kjærligheten!</p>
+  </div>
+
+  <div class="hero-scroll">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+      <rect x="0.5" y="0.5" width="15" height="23" rx="7.5" stroke="white" stroke-opacity="0.5"/>
+      <circle cx="8" cy="7" r="2" fill="white" fill-opacity="0.7">
+        <animate attributeName="cy" values="7;14;7" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;0.1;0.7" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-bar">
+  <div class="countdown-inner stagger" id="countdown">
+    <div class="cd-unit"><span class="cd-number" id="cd-days">—</span><span class="cd-label">Dager</span></div>
+    <div class="cd-unit"><span class="cd-number" id="cd-hours">—</span><span class="cd-label">Timer</span></div>
+    <div class="cd-unit"><span class="cd-number" id="cd-mins">—</span><span class="cd-label">Minutter</span></div>
+    <div class="cd-unit"><span class="cd-number" id="cd-secs">—</span><span class="cd-label">Sekunder</span></div>
+  </div>
+</div>
+
+<!-- OM OSS — intro split -->
+<section id="om-oss">
+  <div class="split-section">
+    <div class="split-text anim-fade-right">
+      <span class="section-label">Vår historie</span>
+      <h2 class="section-title">Om oss</h2>
+      <div class="section-divider"></div>
+      <p class="large">Vi er Miriam og Gjermund — og vi er veldig glade for at du er her! For de av dere som ikke kjenner oss som par, her er den korte versjonen.</p>
+      <p>Vi møttes, vi reiste, vi ble forelsket — og nå skal vi gifte oss. Enkelt og utrolig.</p>
+    </div>
+    <div class="split-img anim-scale">
+      <img src="foto1.jpg" alt="Miriam og Gjermund">
+    </div>
+  </div>
+</section>
+
+<!-- STORY SECTIONS -->
+<div class="story-section">
+  <div class="story-inner">
+
+    <!-- Hvordan vi møttes -->
+    <div class="story-grid anim-fade-up">
+      <div class="story-text">
+        <h3>Hvordan vi møttes</h3>
+        <p><em style="color:var(--rose-dark);">[Legg til historien om hvordan dere møttes — jo mer personlig, jo bedre!]</em></p>
+      </div>
+      <div class="story-photo-wrap">
+        <img src="foto5.jpg" alt="Miriam og Gjermund">
+        <div class="caption">Tidlige dager ♡</div>
+      </div>
+    </div>
+
+    <!-- Frieriet -->
+    <div class="story-grid text-right anim-fade-up" style="margin-top: clamp(4rem, 7vw, 8rem);">
+      <div class="story-text">
+        <h3>Frieriet ✨</h3>
+        <p><em style="color:var(--rose-dark);">[Fortell om frieriet — hvor, når, og hvordan det skjedde!]</em></p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:1.5rem;">
+          <div style="overflow:hidden; border-radius:2px;">
+            <img src="frieri_b.jpg" alt="Frieriet" style="width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform 0.6s ease;">
+          </div>
+          <div style="overflow:hidden; border-radius:2px;">
+            <img src="frieri_d.jpg" alt="Ringen" style="width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center top; display:block; transition:transform 0.6s ease;">
+          </div>
+        </div>
+      </div>
+      <div class="story-photo-wrap">
+        <video controls playsinline style="width:100%; border-radius:2px; display:block; max-height:600px; object-fit:cover;">
+          <source src="frieri_web.mp4" type="video/mp4">
+        </video>
+        <div class="caption">Posten fikk frieri-æren 🌸</div>
+      </div>
+    </div>
+
+    <!-- Litt om oss -->
+    <div class="person-strip anim-fade-up" style="margin-top: clamp(4rem, 7vw, 8rem);">
+      <div class="person-panel">
+        <img src="portrett_miriam.jpg" alt="Miriam"
+          style="width:160px; height:160px; object-fit:cover; object-position:center top;
+                 border-radius:50%; margin:0 auto 1.25rem; display:block;
+                 box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+        <div class="person-panel-name">Miriam</div>
+        <p style="font-size:0.9rem;"><em>[Alder, hjemsted, jobb, hobbyer]</em></p>
+      </div>
+      <div class="person-panel">
+        <img src="portrett_gjermund.jpg" alt="Gjermund"
+          style="width:160px; height:160px; object-fit:cover; object-position:center top;
+                 border-radius:50%; margin:0 auto 1.25rem; display:block;
+                 box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+        <div class="person-panel-name">Gjermund</div>
+        <p style="font-size:0.9rem;"><em>[Alder, hjemsted, jobb, hobbyer]</em></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRAKTISK INFO -->
+<section id="praktisk">
+  <div class="praktisk-inner">
+    <div class="praktisk-header anim-fade-up">
+      <span class="section-label">Praktisk informasjon</span>
+      <h2 class="section-title">Tid & sted</h2>
+      <div class="section-divider"></div>
+      <p>Her finner du alt du trenger å vite for den store dagen.</p>
+    </div>
+    <div class="venue-grid stagger">
+      <div class="venue-card">
+        <span class="venue-icon">⛪</span>
+        <div class="venue-name">Randesund kirke</div>
+        <p class="venue-detail">Vielse</p>
+        <p class="venue-detail">Lørdag 19. juni 2027 &nbsp;·&nbsp; Kl. 13:15</p>
+        <a class="venue-link" href="https://maps.google.com/?q=Randesund+kirke,+Kristiansand" target="_blank" rel="noopener">Veibeskrivelse →</a>
+      </div>
+      <div class="venue-card">
+        <span class="venue-icon">🥂</span>
+        <div class="venue-name">Bjelle gård</div>
+        <p class="venue-detail">Festmiddag</p>
+        <p class="venue-detail">Lørdag 19. juni 2027 &nbsp;·&nbsp; Kl. 14:30</p>
+        <a class="venue-link" href="https://maps.google.com/?q=Bjelle+gård,+Kristiansand" target="_blank" rel="noopener">Veibeskrivelse →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program">
+  <div class="program-inner">
+    <div class="program-header anim-fade-up">
+      <span class="section-label">Program for dagen</span>
+      <h2 class="section-title light">Slik blir dagen</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline-horizontal stagger">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">13:15</div>
+        <div class="tl-event">Vielse</div>
+        <p class="tl-desc">Randesund kirke — vi sier ja!</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">14:30</div>
+        <div class="tl-event">Mottakelse</div>
+        <p class="tl-desc">Velkommen til Bjelle gård</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">17:30</div>
+        <div class="tl-event">Middag</div>
+        <p class="tl-desc">Festmiddag med taler og innslag</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">TBA</div>
+        <div class="tl-event">Brudevals</div>
+        <p class="tl-desc">Kommer snart!</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">Senest 01:30</div>
+        <div class="tl-event">God natt!</div>
+        <p class="tl-desc">En natt vi aldri glemmer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KLESKODE -->
+<section id="kleskode">
+  <div class="kleskode-inner">
+    <div class="kleskode-visual anim-scale">
+      <div class="dress-icons">🤵🏼 👗</div>
+    </div>
+    <div class="anim-fade-left">
+      <span class="section-label">Kleskode</span>
+      <h2 class="section-title">Hva skal jeg ha på?</h2>
+      <div class="section-divider"></div>
+      <div class="kleskode-rule">
+        <div class="kleskode-rule-title">Mørk dress / Sommerpent</div>
+        <p>Pent og festlig. Unngå neon og sterke farger.</p>
+      </div>
+      <div class="kleskode-rule">
+        <div class="kleskode-rule-title">Norsk sommer</div>
+        <p>Ta med et lag ekstra og velg sko som tåler litt av hvert — vi bor i Norge, tross alt! ☀️🌧️</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAVER -->
+<section id="gaver">
+  <div class="gaver-inner anim-fade-up">
+    <span class="section-label">Gaver</span>
+    <h2 class="section-title">Ønskeliste</h2>
+    <div class="section-divider" style="margin-left:auto; margin-right:auto;"></div>
+    <div class="gift-box">
+      <span class="gift-icon">🌸</span>
+      <p style="color:var(--text); font-size:1.05rem;">Din tilstedeværelse er den beste gaven!</p>
+      <p style="margin-top:0.75rem;">Ønskeliste og eventuell spleis på bryllupsreise kommer snart.</p>
+      <p style="font-size:0.88rem; margin-top:0.75rem;"><em>Glassmagasinet og Kitchen er kjære favoritter hos oss.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- OVERNATTING -->
+<section id="overnatting">
+  <div class="overnatting-inner">
+    <div class="anim-fade-up">
+      <span class="section-label">Overnatting</span>
+      <h2 class="section-title">Hvor bor jeg?</h2>
+      <div class="section-divider"></div>
+      <p>Vi vil gjøre det enkelt for deg å finne et godt sted å sove. Hotellanbefaling og transportinfo kommer snart.</p>
+      <div class="hotel-placeholder-big">🏨 Hotellanbefaling og transportinfo legges til her</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOASTMASTER -->
+<section id="toastmaster">
+  <div class="toast-inner">
+    <div class="anim-fade-up">
+      <span class="section-label">Innslag & taler</span>
+      <h2 class="section-title">Toastmaster</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="toast-grid">
+      <div class="anim-fade-left">
+        <div class="toast-name-big">Mylie Veland Thomassen</div>
+        <p>Kontaktinfo oppgis nærmere bryllupsdagen.</p>
+      </div>
+      <div class="anim-fade-right">
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--navy); margin-bottom:0.75rem; font-weight:400;">Retningslinjer</h3>
+        <ul class="guidelines-list">
+          <li>Vi setter pris på varierte innslag — dans, sang, video, quiz.</li>
+          <li>Kortere og personlig slår langt og pyntet.</li>
+          <li>Unngå for mange inside-vitser som ikke alle forstår.</li>
+          <li>Foreldre og nær familie — taler fra dere er selvfølgelig velkomne! ❤️</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="faq-header anim-fade-up">
+      <span class="section-label">Spørsmål & svar</span>
+      <h2 class="section-title">FAQ</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="faq-item anim-fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Kan jeg ta med barn?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a">Nei, dette er dessverre et barnefritt arrangement. Vi håper på forståelse!</div>
+    </div>
+    <div class="faq-item anim-fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Kan jeg ta med +1?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a">Ta gjerne kontakt med oss direkte om du er usikker — vi finner en løsning!</div>
+    </div>
+    <div class="faq-item anim-fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Er det åpen bar?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a">Nei, men vi sørger for drikke til maten og noe å danse til!</div>
+    </div>
+    <div class="faq-item anim-fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Er det fotografering under vielsen?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a">Ja! Ta gjerne egne bilder. Vi har også profesjonell fotograf til stede.</div>
+    </div>
+    <div class="faq-item anim-fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Er det utendørs?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a">Nei, festen er innendørs. Men vi håper på fint vær for bilder ute! ☀️</div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section id="rsvp">
+  <div class="rsvp-inner">
+    <div class="rsvp-intro anim-fade-right">
+      <span class="section-label">Svar på invitasjon</span>
+      <h2 class="section-title light">RSVP</h2>
+      <div class="section-divider"></div>
+      <p>Invitasjon sendes ut i august 2026.</p>
+      <p>Vi setter stor pris på at dere svarer i god tid — det hjelper oss enormt med planleggingen!</p>
+      <div class="deadline">Svar innen<br>1. desember 2026</div>
+    </div>
+    <div class="anim-fade-left">
+      <form class="rsvp-form" id="rsvpForm" onsubmit="submitRsvp(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fullt navn *</label>
+            <input type="text" name="navn" required placeholder="Ola Nordmann">
+          </div>
+          <div class="form-group">
+            <label>E-post *</label>
+            <input type="email" name="epost" required placeholder="ola@eksempel.no">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Deltar du? *</label>
+            <select name="deltar" required>
+              <option value="">Velg...</option>
+              <option value="ja">Ja, jeg kommer! 🎉</option>
+              <option value="nei">Nei, dessverre ikke</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Antall gjester</label>
+            <select name="antall">
+              <option value="1">1 person</option>
+              <option value="2">2 personer</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Matallergier / spesielle behov</label>
+          <textarea name="allergier" placeholder="F.eks. glutenallergi, vegetar — eller 'ingen'"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Ønsker du å bidra med innslag? (valgfritt)</label>
+          <textarea name="innslag" placeholder="Tale, sang, video, quiz? Fortell litt — toastmaster tar kontakt!"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Telefon (for toastmaster)</label>
+          <input type="text" name="kontakt" placeholder="+47 000 00 000">
+        </div>
+        <button type="submit" class="btn-submit">Send svar →</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        Tusen takk! Vi gleder oss til å feire med deg 🌸
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Miriam & Gjermund — 19. juni 2027
+  <span>Laget med kjærlighet ♡</span>
+</footer>
+
+<script>
+  // ── Countdown ──
+  function updateCountdown() {
+    const wedding = new Date('2027-06-19T13:15:00');
+    const diff = wedding - new Date();
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<div style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.8rem;grid-column:1/-1">I dag er den store dagen! 🎉</div>';
+      return;
+    }
+    document.getElementById('cd-days').textContent  = Math.floor(diff / 86400000);
+    document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Nav scrolled class ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY 
