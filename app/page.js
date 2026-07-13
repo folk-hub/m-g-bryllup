@@ -8,6 +8,62 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const WEDDING_DATE = new Date('2027-06-19T13:15:00');
 
+const RSVP_FORM_URL = 'https://forms.gle/CYBswznUAVntDF9x5';
+
+// Seksjoner som ennå ikke er klare. Sett til true når innholdet skal avsløres —
+// seksjonen dukker opp i menyen og på siden, og seglet forsvinner av seg selv.
+const REVEALED = {
+  program: false,
+  kleskode: false,
+  gaver: false,
+  overnatting: false,
+  toastmaster: false,
+  faq: false,
+};
+
+const NAV_ITEMS = [
+  { id: 'om-oss', label: 'Om oss' },
+  { id: 'praktisk', label: 'Praktisk' },
+  { id: 'program', label: 'Program', key: 'program' },
+  { id: 'kleskode', label: 'Kleskode', key: 'kleskode' },
+  { id: 'faq', label: 'FAQ', key: 'faq' },
+  { id: 'rsvp', label: 'RSVP' },
+];
+
+// Teaser-kortene for det som fortsatt er forseglet.
+const SEALED = [
+  {
+    key: 'program',
+    title: 'Slik blir dagen',
+    hint: 'Vielse, mottakelse, festmiddag — og en brudevals vi ikke røper riktig ennå.',
+  },
+  {
+    key: 'kleskode',
+    title: 'Kleskode',
+    hint: 'Du slipper å gjette. Men ikke helt ennå.',
+  },
+  {
+    key: 'gaver',
+    title: 'Ønskeliste',
+    hint: 'Din tilstedeværelse er uansett den beste gaven.',
+  },
+  {
+    key: 'overnatting',
+    title: 'Hvor bor jeg?',
+    hint: 'Seng, frokost og kort vei til festen. Adressen kommer.',
+  },
+  {
+    key: 'toastmaster',
+    title: 'Toastmaster',
+    hint: 'Noen skal holde i trådene den kvelden. Navnet røpes senere.',
+  },
+  {
+    key: 'faq',
+    title: 'FAQ',
+    hint: 'Svar på det du lurer på — og på noe du ikke visste du lurte på.',
+  },
+];
+
 function getRemaining() {
   const diff = WEDDING_DATE.getTime() - Date.now();
   if (diff <= 0) return null;
@@ -35,7 +91,6 @@ function FaqItem({ question, answer }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [time, setTime] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [showPlay, setShowPlay] = useState(true);
@@ -80,16 +135,13 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const submitRsvp = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   const playVideo = () => {
     videoRef.current?.play();
   };
 
   const countdownDone = mounted && time === null;
+  const sealed = SEALED.filter((s) => !REVEALED[s.key]);
+  const anySealed = sealed.length > 0;
 
   return (
     <>
@@ -105,12 +157,14 @@ export default function Home() {
             <span></span><span></span><span></span>
           </button>
           <ul className={`nav-links${menuOpen ? ' open' : ''}`} id="navLinks">
-            <li><a href="#om-oss" onClick={closeMenu}>Om oss</a></li>
-            <li><a href="#praktisk" onClick={closeMenu}>Praktisk</a></li>
-            <li><a href="#program" onClick={closeMenu}>Program</a></li>
-            <li><a href="#kleskode" onClick={closeMenu}>Kleskode</a></li>
-            <li><a href="#faq" onClick={closeMenu}>FAQ</a></li>
-            <li><a href="#rsvp" onClick={closeMenu}>RSVP</a></li>
+            {NAV_ITEMS.filter((item) => !item.key || REVEALED[item.key]).map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`} onClick={closeMenu}>{item.label}</a>
+              </li>
+            ))}
+            {anySealed && (
+              <li><a href="#kommer" onClick={closeMenu}>Kommer</a></li>
+            )}
           </ul>
         </div>
       </nav>
@@ -319,6 +373,7 @@ export default function Home() {
       </section>
 
       {/* PROGRAM */}
+      {REVEALED.program && (
       <section id="program">
         <div className="program-inner">
           <div className="program-header anim-fade-up">
@@ -360,8 +415,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* KLESKODE */}
+      {REVEALED.kleskode && (
       <section id="kleskode">
         <div className="kleskode-inner">
           <div className="kleskode-visual anim-scale">
@@ -395,8 +452,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* GAVER */}
+      {REVEALED.gaver && (
       <section id="gaver">
         <div className="gaver-inner anim-fade-up">
           <span className="section-label">Gaver</span>
@@ -418,8 +477,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* OVERNATTING */}
+      {REVEALED.overnatting && (
       <section id="overnatting">
         <div className="overnatting-inner">
           <div className="anim-fade-up">
@@ -431,8 +492,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* TOASTMASTER */}
+      {REVEALED.toastmaster && (
       <section id="toastmaster">
         <div className="toast-inner">
           <div className="anim-fade-up">
@@ -457,8 +520,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* FAQ */}
+      {REVEALED.faq && (
       <section id="faq">
         <div className="faq-inner">
           <div className="faq-header anim-fade-up">
@@ -473,6 +538,39 @@ export default function Home() {
           <FaqItem question="Er det utendørs?" answer="Nei, festen er innendørs. Men vi håper på fint vær for bilder ute!" />
         </div>
       </section>
+      )}
+
+      {/* KOMMER SNART — forseglede seksjoner */}
+      {anySealed && (
+      <section id="kommer">
+        <div className="kommer-inner">
+          <div className="kommer-header anim-fade-up">
+            <span className="section-label">Ennå forseglet</span>
+            <h2 className="section-title">Det kommer mer</h2>
+            <div className="section-divider"></div>
+            <p>Vi har fortsatt noen brikker å legge på plass. Etter hvert som de faller på plass, bryter vi seglene ett etter ett — så det lønner seg å stikke innom igjen.</p>
+          </div>
+          <div className="seal-grid stagger">
+            {sealed.map((item) => (
+              <div className="seal-card" key={item.key}>
+                <div className="seal-wax" aria-hidden="true">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="4" y="6" width="16" height="12" rx="1" />
+                    <path d="M4 7l8 6 8-6" />
+                  </svg>
+                </div>
+                <h3 className="seal-title">{item.title}</h3>
+                <div className="seal-lines" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+                <p className="seal-hint">{item.hint}</p>
+                <span className="seal-status">Åpnes senere</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
 
       {/* RSVP */}
       <section id="rsvp">
@@ -486,54 +584,22 @@ export default function Home() {
             <div className="deadline">Svar innen<br />1. desember 2026</div>
           </div>
           <div className="anim-fade-left">
-            {!submitted ? (
-              <form className="rsvp-form" id="rsvpForm" onSubmit={submitRsvp}>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Fullt navn *</label>
-                    <input type="text" name="navn" required placeholder="Ola Nordmann" />
-                  </div>
-                  <div className="form-group">
-                    <label>E-post *</label>
-                    <input type="email" name="epost" required placeholder="ola@eksempel.no" />
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Deltar du? *</label>
-                    <select name="deltar" required defaultValue="">
-                      <option value="">Velg...</option>
-                      <option value="ja">Ja, jeg kommer!</option>
-                      <option value="nei">Nei, dessverre ikke</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Antall gjester</label>
-                    <select name="antall" defaultValue="1">
-                      <option value="1">1 person</option>
-                      <option value="2">2 personer</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>Matallergier / spesielle behov</label>
-                  <textarea name="allergier" placeholder="F.eks. glutenallergi, vegetar — eller 'ingen'"></textarea>
-                </div>
-                <div className="form-group">
-                  <label>Ønsker du å bidra med innslag? (valgfritt)</label>
-                  <textarea name="innslag" placeholder="Tale, sang, video, quiz? Fortell litt — toastmaster tar kontakt!"></textarea>
-                </div>
-                <div className="form-group">
-                  <label>Telefon (for toastmaster)</label>
-                  <input type="text" name="kontakt" placeholder="+47 000 00 000" />
-                </div>
-                <button type="submit" className="btn-submit">Send svar →</button>
-              </form>
-            ) : (
-              <div className="form-success" style={{ display: 'block' }}>
-                Tusen takk! Vi gleder oss til å feire med deg
-              </div>
-            )}
+            <div className="rsvp-card">
+              <span className="rsvp-card-label">Svarskjema</span>
+              <p className="rsvp-card-text">
+                Svaret ditt gir du i skjemaet vårt. Der spør vi om navn, om du kommer,
+                matallergier og om du har lyst til å bidra med et innslag.
+              </p>
+              <a
+                className="btn-submit"
+                href={RSVP_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Til svarskjemaet →
+              </a>
+              <p className="rsvp-card-note">Skjemaet åpnes i en ny fane.</p>
+            </div>
           </div>
         </div>
       </section>

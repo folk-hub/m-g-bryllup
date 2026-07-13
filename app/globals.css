@@ -607,6 +607,115 @@
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-toggle { transform: rotate(45deg); }
 
+    /* ─────────────────── KOMMER SNART (forseglet) ─────────────────── */
+    #kommer {
+      background: var(--cream2);
+      padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 6vw, 8vw);
+    }
+    .kommer-inner { max-width: 1200px; margin: 0 auto; }
+    .kommer-header {
+      max-width: 620px; margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+      text-align: center;
+    }
+    .kommer-header .section-divider { margin-left: auto; margin-right: auto; }
+
+    .seal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .seal-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2.25rem 1.75rem 3.25rem;
+      overflow: hidden;
+      transition: transform 0.45s cubic-bezier(.22,1,.36,1), box-shadow 0.45s ease, border-color 0.45s ease;
+    }
+    .seal-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blush);
+      box-shadow: 0 18px 40px -22px rgba(44,58,71,0.28);
+    }
+    .seal-wax {
+      width: 58px; height: 58px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      color: var(--rose);
+      background: var(--cream);
+      border: 1px solid var(--blush);
+      margin-bottom: 1.4rem;
+      transition: transform 0.6s cubic-bezier(.22,1,.36,1), background 0.4s ease, color 0.4s ease;
+    }
+    .seal-card:hover .seal-wax {
+      transform: rotate(-8deg) scale(1.06);
+      background: var(--blush);
+      color: var(--navy);
+    }
+    .seal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      color: var(--navy); line-height: 1.2;
+      margin-bottom: 1.1rem;
+    }
+
+    /* Sladdede linjer — antyder at det ligger tekst under seglet */
+    .seal-lines { display: grid; gap: 0.55rem; margin-bottom: 1.25rem; }
+    .seal-lines span {
+      display: block; height: 7px; border-radius: 4px;
+      background: linear-gradient(90deg, var(--cream2), var(--border), var(--cream2));
+      filter: blur(1.5px);
+      opacity: 0.85;
+      transition: opacity 0.45s ease;
+    }
+    .seal-lines span:nth-child(1) { width: 100%; }
+    .seal-lines span:nth-child(2) { width: 88%; }
+    .seal-lines span:nth-child(3) { width: 62%; }
+    .seal-card:hover .seal-lines span { opacity: 0.35; }
+
+    /* Hintet ligger skjult bak de sladdede linjene og trer fram på hover */
+    .seal-hint {
+      position: absolute;
+      left: 1.75rem; right: 1.75rem;
+      bottom: 3.25rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem; line-height: 1.5;
+      color: var(--rose-dark);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,1,.36,1);
+      pointer-events: none;
+    }
+    .seal-card:hover .seal-hint { opacity: 1; transform: none; }
+
+    .seal-status {
+      position: absolute; left: 1.75rem; bottom: 1.5rem;
+      font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--text-light);
+      opacity: 0.65;
+    }
+    .seal-status::before {
+      content: ''; display: inline-block;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--rose); margin-right: 0.6rem;
+      vertical-align: middle;
+      animation: sealPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes sealPulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.35); }
+    }
+
+    /* Touch-enheter har ingen hover — vis hintet direkte i stedet */
+    @media (hover: none) {
+      .seal-lines { display: none; }
+      .seal-hint { position: static; opacity: 1; transform: none; }
+    }
+
+    /* Segl-kortene skal stagge selv om de er flere enn 5 */
+    .seal-grid.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.5s; }
+
     /* ─────────────────── RSVP ─────────────────── */
     #rsvp {
       background: var(--navy);
@@ -659,6 +768,28 @@
     }
     .form-group select option { background: var(--navy); }
     .form-group textarea { min-height: 90px; resize: vertical; }
+    .rsvp-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px;
+      padding: clamp(2rem, 4vw, 3.25rem);
+    }
+    .rsvp-card-label {
+      font-size: 0.68rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--blush);
+      display: block; margin-bottom: 1.1rem;
+    }
+    .rsvp-card-text {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem; line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .rsvp-card-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 1.25rem;
+    }
+
     .btn-submit {
       background: var(--rose); color: #fff; border: none;
       padding: 1.1rem 3rem; font-family: 'Jost', sans-serif;
@@ -666,6 +797,7 @@
       text-transform: uppercase; cursor: pointer;
       border-radius: 1px; transition: background 0.25s, transform 0.2s;
       align-self: start; margin-top: 0.5rem;
+      display: inline-block; text-decoration: none;
     }
     .btn-submit:hover { background: var(--rose-dark); transform: translateY(-1px); }
     .form-success {
