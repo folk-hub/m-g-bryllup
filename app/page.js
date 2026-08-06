@@ -581,7 +581,7 @@ export default function Home() {
             <div className="section-divider"></div>
             <p>Invitasjon sendes ut i august 2026.</p>
             <p>Vi setter stor pris på at dere svarer i god tid — det hjelper oss enormt med planleggingen!</p>
-            <div className="deadline">Svar innen<br />1. desember 2026</div>
+            <div className="deadline">Svar innen<br />1. november 2026</div>
           </div>
           <div className="anim-fade-left">
             <div className="rsvp-card">
